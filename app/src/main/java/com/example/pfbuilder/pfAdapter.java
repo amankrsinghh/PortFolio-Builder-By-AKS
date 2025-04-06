@@ -3,21 +3,30 @@ package com.example.pfbuilder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
-import android.util.Log;
+import android.os.Build;
+import android.Manifest;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
@@ -50,10 +59,12 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
         holder.skills.setText(pf.getSkills());
         if (pf.getImage() != null && !pf.getImage().isEmpty()) {
             Glide.with(context)
-                    .load(Uri.parse(pf.getImage())) // Convert String to Uri
-                    .placeholder(R.drawable.baseline_account_circle_24) // Placeholder image
-                    .error(R.drawable.circle_background) // Error image
+                    .load(Uri.parse(pf.getImage()))
+                    .placeholder(R.drawable.baseline_account_circle_24)
+                    .error(R.drawable.circle_background)
+                    .circleCrop() // 👈 THIS is the key!
                     .into(holder.profilepic);
+
         } else {
             holder.profilepic.setImageResource(R.drawable.circle_background);
         }
@@ -95,6 +106,46 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
         });
 
 
+        holder.shareBtn.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (context.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    return;
+                }
+            }
+
+            Bitmap bitmap = getBitmapFromView(holder.itemView);
+            try {
+                File cachePath = new File(context.getCacheDir(), "images");
+                cachePath.mkdirs();
+                File file = new File(cachePath, "image.png");
+                FileOutputStream stream = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                stream.flush();
+                stream.close();
+
+                Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", file);
+
+                if (contentUri != null) {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    shareIntent.setDataAndType(contentUri, context.getContentResolver().getType(contentUri));
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                    shareIntent.setType("image/png");
+                    context.startActivity(Intent.createChooser(shareIntent, "Share Portfolio"));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(context, "Sharing failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.jobsBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, Jobs.class);
+            intent.putExtra("jobTitle", pf.getJobtitle()); // ✅ This is correct
+            context.startActivity(intent);
+        });
+
 
     }
 
@@ -106,6 +157,7 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
     public class viewHolder extends RecyclerView.ViewHolder {
         TextView name , email, phone, job_title, job_location, about, skills;
         ImageView profilepic,delete,edit;
+        Button shareBtn,jobsBtn;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.user_name);
@@ -118,7 +170,10 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
             profilepic = itemView.findViewById(R.id.profilepic);
             delete = itemView.findViewById(R.id.delete);
             edit = itemView.findViewById(R.id.update);
+            shareBtn = itemView.findViewById(R.id.shareBtn);
+            jobsBtn = itemView.findViewById(R.id.jobsBtn);
         }
+
     }
 
     public void deleteUser(int position) {
@@ -131,5 +186,15 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
             notifyItemRemoved(position); // Notify RecyclerView
         }
     }
+
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+
+
+
 
 }
