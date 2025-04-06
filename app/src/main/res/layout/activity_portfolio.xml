@@ -8,13 +8,15 @@
     android:layout_height="match_parent"
     android:gravity="center"
     tools:context=".portfolio"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    android:background="@drawable/background">
+   >
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      android:padding="7dp">
 
 
       <TextView
@@ -36,15 +38,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="8dp">
 
         <Button
             android:id="@+id/add_portfolio"
-            android:layout_width="match_parent"
+            android:layout_width="153dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="#F44336"
             android:text="Add Portfolio"
-            android:textColor="@color/white"
-            android:backgroundTint="#F44336"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

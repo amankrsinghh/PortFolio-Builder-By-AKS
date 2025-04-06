@@ -8,7 +8,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class update extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class update extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_update);
 
         input_name = findViewById(R.id.input_name);
@@ -76,6 +80,16 @@ public class update extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Update failed!", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            v.setPadding(
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
+                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+            );
+            return insets;
         });
     }
 
