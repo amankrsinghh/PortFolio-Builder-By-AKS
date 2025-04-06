@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +45,9 @@ public class jobAdapter extends RecyclerView.Adapter<jobAdapter.viehHolder> {
                 .load(model.getJobicon())
                 .placeholder(R.drawable.baseline_account_circle_24) // koi default image
                 .into(holder.jobicon);
+
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.fade_in);
+        holder.itemView.startAnimation(animation);
 
     }
 
