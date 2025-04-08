@@ -36,6 +36,7 @@ dependencies {
     implementation ("androidx.browser:browser:1.5.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation ("com.airbnb.android:lottie:6.6.4")
 
     implementation(libs.appcompat)
     implementation(libs.material)

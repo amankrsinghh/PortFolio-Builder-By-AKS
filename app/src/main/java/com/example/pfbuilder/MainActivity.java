@@ -15,12 +15,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     EditText input_name, input_email, input_phone, input_job_title, input_job_location, input_about, input_skills;
@@ -76,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
             if (imageUri == null) {
                 Toast.makeText(this, "Please select an image!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || job_title.isEmpty() || job_location.isEmpty() || about.isEmpty() || skills.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
                 return;
             }
 

@@ -6,12 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 android:background="@drawable/background"
-    android:gravity="center"
+
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
 
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
     <!-- Profile Picture Upload -->
     <TextView
         android:layout_width="wrap_content"
@@ -20,7 +25,7 @@ android:background="@drawable/background"
         android:padding="3dp"
         android:text="Upload Profile Picture"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
     <!-- Upload Picture Button -->
     <com.google.android.material.imageview.ShapeableImageView
@@ -34,6 +39,12 @@ android:background="@drawable/background"
         android:scaleType="centerCrop"
         android:src="@drawable/baseline_account_circle_24"
         app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="212dp">
+
 
 <LinearLayout
     android:layout_width="350dp"
@@ -153,6 +164,7 @@ android:background="@drawable/background"
             android:layout_marginBottom="8dp"/>
 
 </LinearLayout>
+    </ScrollView>
 
 
     <!-- Submit Button -->
@@ -160,11 +172,11 @@ android:background="@drawable/background"
         android:id="@+id/submit_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#F44336"
+        android:backgroundTint="#EF651E"
         android:padding="12dp"
         android:text="Create Portfolio"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
-
+</LinearLayout>
 
 </LinearLayout>

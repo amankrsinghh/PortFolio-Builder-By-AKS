@@ -25,7 +25,7 @@
           android:text="Your Portfolios"
           android:gravity="center"
           android:textStyle="bold"
-          android:textColor="#CDDC39"
+          android:textColor="#FFFFFF"
           android:textSize="25sp"/>
   </LinearLayout>
 
@@ -44,9 +44,9 @@
 
         <Button
             android:id="@+id/add_portfolio"
-            android:layout_width="153dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#F44336"
+            android:backgroundTint="#6716FD"
             android:text="Add Portfolio"
             android:textColor="@color/white" />
     </LinearLayout>

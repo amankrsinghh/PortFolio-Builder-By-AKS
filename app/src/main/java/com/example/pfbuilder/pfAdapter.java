@@ -62,6 +62,7 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
                     .load(Uri.parse(pf.getImage()))
                     .placeholder(R.drawable.baseline_account_circle_24)
                     .error(R.drawable.circle_background)
+                    .override(1080,1920)
                     .circleCrop() // 👈 THIS is the key!
                     .into(holder.profilepic);
 
