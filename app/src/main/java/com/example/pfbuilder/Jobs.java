@@ -35,7 +35,7 @@ public class Jobs extends AppCompatActivity {
     ProgressBar progressBar;
 
     String jobTitle;
-    String url = "paste your endpoint URL";
+    String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +51,6 @@ public class Jobs extends AppCompatActivity {
         jobTitle = getIntent().getStringExtra("jobTitle");
 
         fetchJobs();
-
-
-
-
-
-
-
-
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
