@@ -143,7 +143,7 @@ public class pfAdapter extends RecyclerView.Adapter<pfAdapter.viewHolder> {
 
         holder.jobsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, Jobs.class);
-            intent.putExtra("jobTitle", pf.getJobtitle()); // ✅ This is correct
+            intent.putExtra("jobTitle", pf.getJobtitle());
             context.startActivity(intent);
         });
 

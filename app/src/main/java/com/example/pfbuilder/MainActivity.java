@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || job_title.isEmpty() || job_location.isEmpty() || about.isEmpty() || skills.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields!", Toast.LENGTH_SHORT).show();
-                return;
+                 return;
             }
 
             image = imageUri.toString();

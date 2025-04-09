@@ -1,15 +1,11 @@
 package com.example.pfbuilder;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,8 +24,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 //    https://67ec3c59aa794fb3222d4939.mockapi.io/api/jobs/jobs
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class Jobs extends AppCompatActivity {
@@ -41,7 +35,7 @@ public class Jobs extends AppCompatActivity {
     ProgressBar progressBar;
 
     String jobTitle;
-    String url = "https://67ec3c59aa794fb3222d4939.mockapi.io/api/jobs/jobs";
+    String url = "paste your endpoint URL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +80,7 @@ public class Jobs extends AppCompatActivity {
                         for (int i = 0; i < response.length(); i++) {
                             JSONObject jobObj = response.getJSONObject(i);
 
-                            // Filter inside the app
+
                             if (jobObj.getString("title").equalsIgnoreCase(jobTitle)) {
                                 String jobicon = jobObj.getString("jobicon");
                                 String title = jobObj.getString("title");
