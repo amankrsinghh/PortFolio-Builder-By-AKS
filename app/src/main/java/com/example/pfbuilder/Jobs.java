@@ -35,7 +35,7 @@ public class Jobs extends AppCompatActivity {
     ProgressBar progressBar;
 
     String jobTitle;
-    String url = "";
+    String url = " https://67ec3c59aa794fb3222d4939.mockapi.io/api/jobs/jobs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
